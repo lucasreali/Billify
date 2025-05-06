@@ -6,25 +6,30 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 
-const formSchema = z.object({
-    name: z.string().min(2, {
-        message: 'Name must be at least 2 characters long',
-    }),
-    email: z.string().email({
-        message: 'Invalid email address',
-    }),
-    password: z
-        .string()
-        .min(6, {
-            message: 'Password must be at least 6 characters long',
-        })
-        .max(20, {
-            message: 'Password must be at most 20 characters long',
+const formSchema = z
+    .object({
+        name: z.string().min(2, {
+            message: 'Name must be at least 2 characters long',
         }),
-    confirmPassword: z.string().min(6, {
-        message: 'Password must be at least 6 characters long',
-    }),
-});
+        email: z.string().email({
+            message: 'Invalid email address',
+        }),
+        password: z
+            .string()
+            .min(6, {
+                message: 'Password must be at least 6 characters long',
+            })
+            .max(20, {
+                message: 'Password must be at most 20 characters long',
+            }),
+        confirmPassword: z.string().min(6, {
+            message: 'Password must be at least 6 characters long',
+        }),
+    })
+    .refine((data) => data.password === data.confirmPassword, {
+        message: 'As senhas não coincidem',
+        path: ['confirmPassword'],
+    });
 
 const RegisterForm = () => {
     const form = useForm<z.infer<typeof formSchema>>({
@@ -37,9 +42,36 @@ const RegisterForm = () => {
         },
     });
 
-    const onSubmit = (data: z.infer<typeof formSchema>) => {
-        console.log('Form submitted', data);
-    }
+    const onSubmit = async (data: z.infer<typeof formSchema>) => {
+        try {
+            const response = await fetch('/api/auth/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: data.name,
+                    email: data.email,
+                    password: data.password,
+                    confirmPassword: data.confirmPassword,
+                }),
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                console.error('Erro no cadastro:', errorData);
+                // Aqui você pode adicionar lógica para exibir erro ao usuário
+                return;
+            }
+
+            const result = await response.json();
+            console.log('Cadastro realizado com sucesso:', result);
+            // Aqui você pode adicionar redirecionamento após o cadastro bem-sucedido
+        } catch (error) {
+            console.error('Erro ao processar o cadastro:', error);
+            // Tratamento de erros de rede
+        }
+    };
 
     return (
         <Form {...form}>
@@ -64,7 +96,10 @@ const RegisterForm = () => {
                             <FormItem>
                                 <FormLabel>Email</FormLabel>
                                 <FormControl>
-                                    <Input placeholder='mail@exemple.com' {...field} />
+                                    <Input
+                                        placeholder='mail@exemple.com'
+                                        {...field}
+                                    />
                                 </FormControl>
                             </FormItem>
                         )}
