@@ -1,6 +1,6 @@
 import AuthOptins from '@/components/auth/authOptions';
-import RegisterForm from '@/components/auth/registerForm';
 import Separetor from '@/components/auth/separetor';
+import SignInForm from '@/components/auth/signInForm';
 import Terms from '@/components/auth/terms';
 import Link from '@/components/next/link';
 import {
@@ -12,26 +12,31 @@ import {
     CardTitle,
 } from '@/components/ui/card';
 
-const RegisterPage = () => {
+const SignInPage = () => {
     return (
         <div className='flex flex-col items-center justify-center h-screen bg-muted gap-5'>
             <Card className='w-[400px]'>
                 <CardHeader className='text-center'>
-                    <CardTitle className='text-xl'>Welcome back</CardTitle>
+                    <CardTitle className='text-xl'>
+                        Sign In to Billify
+                    </CardTitle>
                     <CardDescription>
-                        Enter with your Apple or Google account
+                        Access your account to manage your bills
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
                     <AuthOptins />
                     <Separetor />
-                    <RegisterForm />
+                    <SignInForm />
                 </CardContent>
                 <CardFooter>
                     <div className='text-center text-sm w-full'>
                         Don&apos;t have an account?{' '}
-                        <Link href='/signin' className='underline underline-offset-4'>
-                            Sign in
+                        <Link
+                            href='/register'
+                            className='underline underline-offset-4'
+                        >
+                            Register
                         </Link>
                     </div>
                 </CardFooter>
@@ -41,4 +46,4 @@ const RegisterPage = () => {
     );
 };
 
-export default RegisterPage;
+export default SignInPage;
