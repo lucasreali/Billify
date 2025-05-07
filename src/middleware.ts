@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getToken } from 'next-auth/jwt';
 
 const publicRoutes = [
-    '/login',
+    '/signin',
     '/register',
     '/forgot-password',
     '/api/auth',
@@ -25,7 +25,7 @@ export const middleware = async (request: NextRequest) => {
     });
 
     if (!token) {
-        const loginUrl = new URL('/login', request.url);
+        const loginUrl = new URL('/signin', request.url);
         return NextResponse.redirect(loginUrl);
     }
 

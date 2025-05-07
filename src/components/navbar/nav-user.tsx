@@ -3,10 +3,9 @@
 import {
     BadgeCheck,
     Bell,
-    ChevronsUpDown,
     CreditCard,
     LogOut,
-    Sparkles,
+    Sparkles
 } from 'lucide-react';
 
 import {
@@ -24,8 +23,8 @@ import {
     SidebarMenuItem,
     useSidebar,
 } from '@/components/ui/sidebar';
+import { useRouter } from 'next/navigation';
 import NavUserInfo from './nav-user-info';
-import { signOut } from '@/auth';
 
 const NavUser = ({
     user,
@@ -37,6 +36,25 @@ const NavUser = ({
     };
 }) => {
     const { isMobile } = useSidebar();
+
+    const route = useRouter();
+
+    const singOut = async () => {
+        try {
+            const response = await fetch('/api/auth/signout', {
+                method: 'POST',
+            });
+
+            if (response.ok) {
+                console.log('Signed out successfully');
+                route.push('/signin');
+            } else {
+                console.error('Sign out failed:', response.statusText);
+            }
+        } catch (error) {
+            console.error('An error occurred during sign out:', error);
+        }
+    };
 
     return (
         <SidebarMenu>
@@ -84,12 +102,11 @@ const NavUser = ({
                             </DropdownMenuItem>
                         </DropdownMenuGroup>
                         <DropdownMenuSeparator />
-                        
-                            <DropdownMenuItem>
-                                <LogOut />
-                                Sign Out
-                            </DropdownMenuItem>
-                        
+
+                        <DropdownMenuItem onClick={singOut}>
+                            <LogOut />
+                            Sign Out
+                        </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
             </SidebarMenuItem>

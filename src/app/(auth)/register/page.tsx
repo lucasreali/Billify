@@ -16,7 +16,7 @@ import {
 
 const RegisterPage = () => {
     return (
-        <div className='flex flex-col items-center justify-center h-screen bg-muted gap-5'>
+        <div className='flex flex-col items-center justify-center h-screen bg-muted gap-5 w-full'>
             <Card className='w-[400px]'>
                 <CardHeader className='text-center'>
                     <CardTitle className='text-xl'>Welcome back</CardTitle>
