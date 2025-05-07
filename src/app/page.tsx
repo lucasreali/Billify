@@ -1,7 +1,15 @@
-export default function Home() {
+import { auth } from "@/auth";
+
+const Home = async () => {
+    const session = await auth();
+    const user = session?.user;
+
+
     return (
         <main>
-            <div>Hello world!</div>
+            <div>{user?.name}</div>
         </main>
     );
 }
+
+export default Home;

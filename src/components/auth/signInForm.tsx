@@ -5,6 +5,7 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
+import { useRouter } from 'next/navigation';
 
 const formSchema = z.object({
     email: z.string().email({
@@ -16,6 +17,7 @@ const formSchema = z.object({
 });
 
 const SignInForm = () => {
+    const router = useRouter();
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -46,7 +48,8 @@ const SignInForm = () => {
 
             const result = await response.json();
             console.log('Login successful:', result);
-            // Here you can add redirection after successful login
+            router.push('/'); // Redirect to home page or dashboard
+            
         } catch (error) {
             console.error('Error processing login:', error);
             // Network error handling

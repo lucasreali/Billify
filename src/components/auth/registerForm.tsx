@@ -5,6 +5,7 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
+import { useRouter } from 'next/navigation';
 
 const formSchema = z
     .object({
@@ -32,6 +33,7 @@ const formSchema = z
     });
 
 const RegisterForm = () => {
+    const router = useRouter();
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -66,7 +68,7 @@ const RegisterForm = () => {
 
             const result = await response.json();
             console.log('Cadastro realizado com sucesso:', result);
-            // Aqui você pode adicionar redirecionamento após o cadastro bem-sucedido
+            router.push('/signin');
         } catch (error) {
             console.error('Erro ao processar o cadastro:', error);
             // Tratamento de erros de rede

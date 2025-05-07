@@ -18,7 +18,7 @@ const SignInPage = () => {
             <Card className='w-[400px]'>
                 <CardHeader className='text-center'>
                     <CardTitle className='text-xl'>
-                        Sign In to Billify
+                        Welcome to Billify
                     </CardTitle>
                     <CardDescription>
                         Access your account to manage your bills
