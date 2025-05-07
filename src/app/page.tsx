@@ -1,4 +1,5 @@
 import { auth } from "@/auth";
+import AppSidebar from "@/components/navbar/app-sidebar";
 
 const Home = async () => {
     const session = await auth();
@@ -7,7 +8,7 @@ const Home = async () => {
 
     return (
         <main>
-            <div>{user?.name}</div>
+            <AppSidebar />
         </main>
     );
 }

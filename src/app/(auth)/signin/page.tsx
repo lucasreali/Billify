@@ -1,6 +1,7 @@
-import AuthOptins from '@/components/auth/authOptions';
+
+import AuthOptins from '@/components/auth/auth-options';
 import Separetor from '@/components/auth/separetor';
-import SignInForm from '@/components/auth/signInForm';
+import SignInForm from '@/components/auth/signIn-form';
 import Terms from '@/components/auth/terms';
 import Link from '@/components/next/link';
 import {

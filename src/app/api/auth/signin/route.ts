@@ -1,7 +1,6 @@
 import { signIn } from "@/auth";
 import { NextRequest, NextResponse } from "next/server";
 
-
 export const POST = async (request: NextRequest) => {
     const { email, password } = await request.json();
 

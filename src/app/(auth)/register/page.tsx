@@ -1,5 +1,7 @@
-import AuthOptins from '@/components/auth/authOptions';
-import RegisterForm from '@/components/auth/registerForm';
+
+
+import AuthOptins from '@/components/auth/auth-options';
+import RegisterForm from '@/components/auth/register-form';
 import Separetor from '@/components/auth/separetor';
 import Terms from '@/components/auth/terms';
 import Link from '@/components/next/link';
