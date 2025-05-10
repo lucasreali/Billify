@@ -2,7 +2,6 @@ import { prisma } from '@/lib/prisma';
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 
-// Schema for creating/updating clients
 const clientSchema = z.object({
     userId: z.string().cuid({ message: 'Invalid user ID' }),
     name: z
@@ -17,7 +16,6 @@ const clientSchema = z.object({
     address: z.string().optional().nullable(),
 });
 
-// Schema for partial client updates
 const clientPatchSchema = z.object({
     name: z
         .string()
@@ -32,12 +30,10 @@ const clientPatchSchema = z.object({
     address: z.string().optional().nullable(),
 });
 
-// Create new client
 export async function POST(request: NextRequest) {
     try {
         const body = await request.json();
 
-        // Validate input data
         const result = clientSchema.safeParse(body);
 
         if (!result.success) {
@@ -49,7 +45,6 @@ export async function POST(request: NextRequest) {
 
         const { userId, name, email, phone, address } = result.data;
 
-        // Create client
         const client = await prisma.client.create({
             data: {
                 userId,
@@ -69,13 +64,11 @@ export async function POST(request: NextRequest) {
     }
 }
 
-// Get all clients (with possible filtering)
 export async function GET(request: NextRequest) {
     try {
         const url = new URL(request.url);
         const userId = url.searchParams.get('userId');
 
-        // Validate userId if provided
         if (userId) {
             const userIdSchema = z
                 .string()
@@ -90,7 +83,6 @@ export async function GET(request: NextRequest) {
             }
         }
 
-        // Fetch clients with or without userId filter
         const clients = await prisma.client.findMany({
             where: userId ? { userId } : undefined,
         });

@@ -61,7 +61,6 @@ export async function PATCH(
     { params }: { params: { id: string } }
 ) {
     try {
-        // Validate parameters
         const validatedParams = paramsSchema.safeParse(params);
 
         if (!validatedParams.success) {
