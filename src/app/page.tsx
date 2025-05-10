@@ -1,16 +1,7 @@
-import { auth } from "@/auth";
-import AppSidebar from "@/components/navbar/app-sidebar";
+import AppSidebar from '@/components/sidebar/app-sidebar';
 
 const Home = async () => {
-    const session = await auth();
-    const user = session?.user;
-
-
-    return (
-        <main>
-            <AppSidebar />
-        </main>
-    );
-}
+    return <>Home</>;
+};
 
 export default Home;
