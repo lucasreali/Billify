@@ -48,7 +48,7 @@ const SignInForm = () => {
 
             const result = await response.json();
             console.log('Login successful:', result);
-            router.push('/'); // Redirect to home page or dashboard
+            router.push('/dashboard'); // Redirect to home page or dashboard
             
         } catch (error) {
             console.error('Error processing login:', error);

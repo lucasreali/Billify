@@ -3,9 +3,11 @@
 import {
     BadgeCheck,
     Bell,
+    Cog,
     CreditCard,
     LogOut,
-    Sparkles
+    Sparkles,
+    TableConfig,
 } from 'lucide-react';
 
 import {
@@ -25,6 +27,19 @@ import {
 } from '@/components/ui/sidebar';
 import { useRouter } from 'next/navigation';
 import NavUserInfo from './nav-user-info';
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from '../ui/dialog';
+import { Button } from '../ui/button';
+import { Input } from '../ui/input';
+import { Label } from '../ui/label';
+import SettingsDialog from './settings-dialog';
 
 const NavUser = ({
     user,
@@ -88,10 +103,7 @@ const NavUser = ({
                         </DropdownMenuGroup>
                         <DropdownMenuSeparator />
                         <DropdownMenuGroup>
-                            <DropdownMenuItem>
-                                <BadgeCheck />
-                                Account
-                            </DropdownMenuItem>
+                            <SettingsDialog user={user}/>
                             <DropdownMenuItem>
                                 <CreditCard />
                                 Billing
